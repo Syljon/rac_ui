@@ -4,8 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import * as yup from "yup";
-import FormButton from "./FormButton";
-import { FormField } from "./FormField";
+import FormButton from "../shared/Form/FormButton";
+import { FormField } from "../shared/Form/FormField";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -26,7 +26,7 @@ const validationSchema = yup.object({
   password: yup.string().required(),
 });
 
-export function FormikForm() {
+export default function LoginForm() {
   const classes = useStyles();
   return (
     <Formik
