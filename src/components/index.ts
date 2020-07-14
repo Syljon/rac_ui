@@ -1,3 +1,4 @@
-import LoginPage from "./Login/Login";
+import LoginPage from "./LoginPage";
+import SetPassword from "./SetPasswordPage/SetPassword";
 
-export default { LoginPage };
+export default { LoginPage, SetPassword };

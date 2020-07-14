@@ -6,6 +6,7 @@ import { createBrowserHistory } from "history";
 
 export const Routes: { [key: string]: string } = {
   Login: "/login",
+  SetPassword: "/set-password",
 };
 
 const history = createBrowserHistory();
@@ -15,6 +16,7 @@ function App() {
     <Router history={history}>
       <Switch>
         <Route path={Routes.Login} component={Pages.LoginPage} />
+        <Route path={Routes.SetPassword} component={Pages.SetPassword} />
         <Redirect from="*" to={Routes.Login} />
       </Switch>
     </Router>
