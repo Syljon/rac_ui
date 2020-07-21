@@ -2,14 +2,12 @@ import React from "react";
 import Pages from "./components";
 import "./App.css";
 import { Router, Switch, Route, Redirect } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import history from "./components/shared/helpers/history";
 
 export const Routes: { [key: string]: string } = {
   Login: "/login",
   SetPassword: "/set-password",
 };
-
-const history = createBrowserHistory();
 
 function App() {
   return (
