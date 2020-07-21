@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form } from "formik";
@@ -6,9 +6,13 @@ import * as yup from "yup";
 
 import { FormField } from "../shared/Form/FormField";
 import FormButton from "../shared/Form/FormButton";
+import { useHistory } from "react-router-dom";
+import useQuery from "../shared/helpers/useQuery";
+import { Routes } from "../../App";
+import { setPassword } from "../../api/auth";
 
 const validationSchema = yup.object({
-  password: yup.string().required("password is a required field"),
+  password: yup.string().min(6).required("password is a required field"),
   password2: yup
     .string()
     .required("repeat password is a required field")
@@ -31,6 +35,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SetPasswordForm() {
   const classes = useStyles();
+  const query = useQuery();
+  const history = useHistory();
+  let token: string;
+  useEffect(() => {
+    token = query.get("token") as string;
+    if (!token) {
+      history.push(Routes.Login);
+      return;
+    }
+  }, [history, query]);
 
   return (
     <Formik
@@ -38,11 +52,14 @@ export default function SetPasswordForm() {
       validateOnChange={true}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(true);
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 4000);
+        setPassword(
+          {
+            token: token,
+            password: values.password,
+            password2: values.password2,
+          },
+          setSubmitting
+        );
       }}
     >
       {({ values, errors, isSubmitting }) => (
