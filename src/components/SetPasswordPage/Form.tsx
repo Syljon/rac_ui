@@ -52,14 +52,12 @@ export default function SetPasswordForm() {
       validateOnChange={true}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        setPassword(
-          {
-            token: token,
-            password: values.password,
-            password2: values.password2,
-          },
-          setSubmitting
-        );
+        setPassword({
+          token: token,
+          password: values.password,
+          password2: values.password2,
+          cb: setSubmitting,
+        });
       }}
     >
       {({ values, errors, isSubmitting }) => (

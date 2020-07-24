@@ -1,13 +1,21 @@
 import axios from ".";
 import history from "../components/shared/helpers/history";
 
-export interface ISetPaswordPost {
+export interface IPostPasswordBody {
   token: string;
   password: string;
   password2: string;
 }
+export interface ISetPassword extends IPostPasswordBody {
+  cb: (isSubmitting: boolean) => void;
+}
 
-export async function postPassword(body: ISetPaswordPost) {
+export interface ILoginFormState {
+  email: string;
+  password: string;
+}
+
+export async function postPassword(body: IPostPasswordBody) {
   try {
     const results = await axios.post(
       "/auth/set-password",
@@ -18,17 +26,18 @@ export async function postPassword(body: ISetPaswordPost) {
     return error.response;
   }
 }
-
-export async function setPassword(
-  form: ISetPaswordPost,
-  cb: (isSubmitting: boolean) => void
-) {
+export async function setPassword({
+  token,
+  password,
+  password2,
+  cb,
+}: ISetPassword) {
   try {
     cb(true);
     const response = await postPassword({
-      token: form.token,
-      password: form.password,
-      password2: form.password2,
+      token: token,
+      password: password,
+      password2: password2,
     });
     if (response.status === 200) {
       history.push("login");
@@ -39,5 +48,14 @@ export async function setPassword(
     console.log(e);
   } finally {
     cb(false);
+  }
+}
+
+export async function postLogin(body: ILoginFormState) {
+  try {
+    const results = await axios.post("/auth/login", JSON.stringify(body));
+    return results;
+  } catch (error) {
+    return error.response;
   }
 }
