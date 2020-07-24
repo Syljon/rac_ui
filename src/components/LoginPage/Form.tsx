@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import * as yup from "yup";
 import FormButton from "../shared/Form/FormButton";
 import { FormField } from "../shared/Form/FormField";
+import { login } from "../../api/auth";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -34,11 +35,11 @@ export default function LoginForm() {
       validateOnChange={true}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(true);
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 4000);
+        login({
+          email: values.email,
+          password: values.password,
+          cb: setSubmitting,
+        });
       }}
     >
       {({ values, errors, isSubmitting }) => (
