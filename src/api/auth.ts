@@ -10,9 +10,13 @@ export interface ISetPassword extends IPostPasswordBody {
   cb: (isSubmitting: boolean) => void;
 }
 
-export interface ILoginFormState {
+export interface IPostLoginBody {
   email: string;
   password: string;
+}
+
+export interface ILogin extends IPostLoginBody {
+  cb: (isSubmitting: boolean) => void;
 }
 
 export async function postPassword(body: IPostPasswordBody) {
@@ -40,6 +44,7 @@ export async function setPassword({
       password2: password2,
     });
     if (response.status === 200) {
+      localStorage.setItem("token", response.token);
       history.push("login");
     } else {
       console.log(response);
@@ -51,11 +56,27 @@ export async function setPassword({
   }
 }
 
-export async function postLogin(body: ILoginFormState) {
+export async function postLogin(body: IPostLoginBody) {
   try {
     const results = await axios.post("/auth/login", JSON.stringify(body));
     return results;
   } catch (error) {
     return error.response;
+  }
+}
+
+export async function login({ email, password, cb }: ILogin) {
+  try {
+    cb(true);
+    const response = await postLogin({ email: email, password: password });
+    if (response.status === 200) {
+      history.push("dashboard");
+    } else {
+      console.log(response);
+    }
+  } catch (e) {
+    console.log(e);
+  } finally {
+    cb(false);
   }
 }
