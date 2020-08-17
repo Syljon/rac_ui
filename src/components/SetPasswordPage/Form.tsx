@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import useQuery from "../shared/helpers/useQuery";
 import { Routes } from "../../App";
 import { setPassword } from "../../api/auth";
+import { SubmitSetPassword } from "../shared/services/auth.service";
 
 const validationSchema = yup.object({
   password: yup.string().min(6).required("password is a required field"),
@@ -51,13 +52,17 @@ export default function SetPasswordForm() {
       initialValues={{ password: "", password2: "" }}
       validateOnChange={true}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setPassword({
+      onSubmit={async (values, { setSubmitting }) => {
+        setSubmitting(true);
+        const response = await SubmitSetPassword({
           token: token,
           password: values.password,
           password2: values.password2,
-          cb: setSubmitting,
         });
+        setSubmitting(false);
+        if (response) {
+          history.push("dashboard");
+        }
       }}
     >
       {({ values, errors, isSubmitting }) => (

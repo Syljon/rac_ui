@@ -7,6 +7,7 @@ import * as yup from "yup";
 import FormButton from "../shared/Form/FormButton";
 import { FormField } from "../shared/Form/FormField";
 import { loginSubmit } from "../shared/services/auth.service";
+import history from "../shared/helpers/history";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -42,6 +43,7 @@ export default function LoginForm() {
         });
         setSubmitting(false);
         if (response) {
+          history.push("dashboard");
         }
       }}
     >
