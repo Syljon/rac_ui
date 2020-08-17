@@ -1,18 +1,17 @@
-import { login, setPassword } from "../../../api/auth";
+import AuthApi from "../../../api/auth";
 import Snackbar from "../helpers/snackbar";
 import ILogin from "../interfaces/Login";
 import ISetPassword from "../interfaces/SetPassword";
 
-export async function loginSubmit({
-  email,
-  password,
-}: ILogin): Promise<boolean> {
+async function loginSubmit({ email, password }: ILogin): Promise<boolean> {
   try {
-    const response = await login({ email: email, password: password });
+    const response = await AuthApi.login({ email: email, password: password });
 
     if (response.status === 200) {
+      Snackbar.success("Login successful");
       return true;
     } else {
+      Snackbar.warning("Login unsuccessful");
       return false;
     }
   } catch (error) {
@@ -21,13 +20,9 @@ export async function loginSubmit({
   }
 }
 
-export async function SubmitSetPassword({
-  token,
-  password,
-  password2,
-}: ISetPassword) {
+async function SubmitSetPassword({ token, password, password2 }: ISetPassword) {
   try {
-    const response = await setPassword({
+    const response = await AuthApi.setPassword({
       token: token,
       password: password,
       password2: password2,
@@ -40,6 +35,11 @@ export async function SubmitSetPassword({
     }
   } catch (error) {
     Snackbar.error(error.response.data?.message);
-    return false;
+    return error;
   }
 }
+
+export default {
+  loginSubmit,
+  SubmitSetPassword,
+};
