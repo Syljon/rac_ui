@@ -8,7 +8,7 @@ const initialState: AuthState = {
   email: undefined,
   role: undefined,
 };
-export function authReducer(
+export default function authReducer(
   state = initialState,
   action: AuthActionTypes
 ): AuthState {
