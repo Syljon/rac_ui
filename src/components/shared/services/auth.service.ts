@@ -43,7 +43,7 @@ async function SubmitSetPassword({ token, password, password2 }: ISetPassword) {
     }
   } catch (error) {
     Snackbar.error(error.response.data?.message);
-    return error;
+    return false;
   }
 }
 
