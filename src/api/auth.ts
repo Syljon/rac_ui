@@ -1,6 +1,6 @@
 import axios from ".";
-import ILogin from "../components/shared/interfaces/Login";
-import ISetPassword from "../components/shared/interfaces/SetPassword";
+import ILogin from "../shared/interfaces/Login";
+import ISetPassword from "../shared/interfaces/SetPassword";
 import { AxiosResponse } from "axios";
 
 const login = async (body: ILogin) =>
