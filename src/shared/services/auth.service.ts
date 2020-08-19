@@ -14,6 +14,7 @@ async function loginSubmit({ email, password }: ILogin): Promise<boolean> {
 
     if (response.status === 200) {
       axios.defaults.headers.common["Authorization"] = response.data;
+      localStorage.setItem("accessToken", response.data);
       const user: User = jwt_decode(response.data);
       store.dispatch(AuthActions.storeUser(user));
       Snackbar.success("Login successful");
