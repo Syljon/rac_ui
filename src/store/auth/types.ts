@@ -1,8 +1,8 @@
 export interface AuthState extends User {}
 
 export interface User {
-  token: string | undefined;
   id: string | undefined;
+  iat: number | undefined;
   firstName: string | undefined;
   lastName: string | undefined;
   email: string | undefined;

@@ -1,7 +1,7 @@
 import { AuthState, STORE_USER, AuthActionTypes } from "./types";
 
 const initialState: AuthState = {
-  token: undefined,
+  iat: undefined,
   id: undefined,
   firstName: undefined,
   lastName: undefined,
@@ -16,7 +16,7 @@ export function authReducer(
     case STORE_USER:
       return {
         ...state,
-        token: action.payload.token,
+        iat: action.payload.iat,
         id: action.payload.id,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
