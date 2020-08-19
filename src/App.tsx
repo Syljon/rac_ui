@@ -2,9 +2,9 @@ import React from "react";
 import Pages from "./components";
 import "./App.css";
 import { Router, Switch, Route, Redirect } from "react-router-dom";
-import history from "./components/shared/helpers/history";
+import history from "./shared/helpers/history";
 import { SnackbarProvider } from "notistack";
-import { SnackbarUtilsConfigurator } from "./components/shared/helpers/snackbar";
+import { SnackbarUtilsConfigurator } from "./shared/helpers/snackbar";
 
 export const Routes: { [key: string]: string } = {
   Login: "/login",

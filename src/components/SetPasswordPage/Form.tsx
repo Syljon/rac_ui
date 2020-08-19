@@ -4,12 +4,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 
-import { FormField } from "../shared/Form/FormField";
-import FormButton from "../shared/Form/FormButton";
+import { FormField } from "../../shared/Form/FormField";
+import FormButton from "../../shared/Form/FormButton";
 import { useHistory } from "react-router-dom";
-import useQuery from "../shared/helpers/useQuery";
+import useQuery from "../../shared/helpers/useQuery";
 import { Routes } from "../../App";
-import AuthService from "../shared/services/auth.service";
+import AuthService from "../../shared/services/auth.service";
 
 const validationSchema = yup.object({
   password: yup.string().min(6).required("password is a required field"),

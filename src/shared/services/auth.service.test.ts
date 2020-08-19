@@ -1,9 +1,9 @@
-import AuthApi from "../../../api/auth";
+import AuthApi from "../../api/auth";
 
 import jwt_decode from "jwt-decode";
 import authService from "./auth.service";
 import snackBar from "../helpers/snackbar";
-import store from "../../../store";
+import store from "../../store";
 import { AxiosResponse } from "axios";
 
 jest.mock("../../../store");
