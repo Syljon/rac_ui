@@ -1,12 +1,21 @@
 import AuthApi from "../../../api/auth";
 
+import jwt_decode from "jwt-decode";
 import authService from "./auth.service";
 import snackBar from "../helpers/snackbar";
-import { AxiosResponse, AxiosError } from "axios";
+import store from "../../../store";
+import { AxiosResponse } from "axios";
+
+jest.mock("../../../store");
+jest.mock("jwt-decode", () => () => ({}));
 
 describe("[Auth Service]", () => {
   beforeAll(() => {
     snackBar.toast = jest.fn().mockReturnValue({});
+    store.dispatch = jest.fn();
+    AuthApi.login = jest
+      .fn()
+      .mockReturnValue(Promise.resolve({ status: 200 } as AxiosResponse));
   });
 
   describe("loginSubmit", () => {
