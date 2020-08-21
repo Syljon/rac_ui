@@ -11,6 +11,7 @@ import { User } from "./store/auth/types";
 import store from "./store";
 import * as AuthActions from "./store/auth/actions";
 import Loading from "./components/Loading";
+import Navbar from "./components/Navigation";
 
 export const Routes: { [key: string]: string } = {
   Login: "/login",
@@ -37,6 +38,7 @@ function App() {
       <SnackbarProvider maxSnack={3}>
         <SnackbarUtilsConfigurator />
         <Router history={history}>
+          <Navbar></Navbar>
           <Switch>
             <Route path={Routes.Login} component={Pages.LoginPage} />
             <Route path={Routes.SetPassword} component={Pages.SetPassword} />
