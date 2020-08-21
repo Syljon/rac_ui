@@ -1,12 +1,17 @@
 import React from "react";
-import { Popover } from "@material-ui/core";
+import { Popover, Button } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { IconButton } from "@material-ui/core";
+import store from "../../store";
+import * as AuthActions from "../../store/auth/actions";
+import history from "../../shared/helpers/history";
 
 export default function Profile() {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
+
+  const storedUser = store.getState().auth.user;
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -18,6 +23,12 @@ export default function Profile() {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    store.dispatch(AuthActions.removeUser());
+    history.push("/login");
+  };
 
   return (
     <>
@@ -44,7 +55,11 @@ export default function Profile() {
           horizontal: "center",
         }}
       >
-        The content of the Popover.
+        {storedUser?.firstName}
+        <br></br>
+        {storedUser?.lastName}
+        <br></br>
+        <Button onClick={logout}> Logout </Button>
       </Popover>
     </>
   );

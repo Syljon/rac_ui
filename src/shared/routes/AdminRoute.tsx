@@ -3,7 +3,7 @@ import { Redirect, Route } from "react-router-dom";
 import store from "../../store";
 
 const AdminRoute = ({ component, token, ...rest }: any) => {
-  const role = store.getState().auth.role;
+  const role = store.getState().auth.user?.role;
   const routeComponent = (props: any) =>
     role === "Admin" ? (
       React.createElement(component, props)
