@@ -4,12 +4,7 @@ import { AuthActionTypes } from "../types";
 
 describe("todos reducer", () => {
   const mockState = {
-    iat: undefined,
-    id: undefined,
-    firstName: undefined,
-    lastName: undefined,
-    email: undefined,
-    role: undefined,
+    user: undefined,
   };
 
   it("should return the initial state", () => {
@@ -31,6 +26,6 @@ describe("todos reducer", () => {
         type: types.STORE_USER,
         payload: { ...payloadMock },
       })
-    ).toEqual({ ...payloadMock });
+    ).toEqual({ ...mockState, user: { ...payloadMock } });
   });
 });

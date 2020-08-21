@@ -1,12 +1,7 @@
-import { AuthState, STORE_USER, AuthActionTypes } from "./types";
+import { AuthState, STORE_USER, AuthActionTypes, REMOVE_USER } from "./types";
 
 const initialState: AuthState = {
-  iat: undefined,
-  id: undefined,
-  firstName: undefined,
-  lastName: undefined,
-  email: undefined,
-  role: undefined,
+  user: undefined,
 };
 export default function authReducer(
   state = initialState,
@@ -16,12 +11,12 @@ export default function authReducer(
     case STORE_USER:
       return {
         ...state,
-        iat: action.payload.iat,
-        id: action.payload.id,
-        firstName: action.payload.firstName,
-        lastName: action.payload.lastName,
-        email: action.payload.email,
-        role: action.payload.role,
+        user: action.payload,
+      };
+    case REMOVE_USER:
+      return {
+        ...state,
+        user: undefined,
       };
     default:
       return state;

@@ -1,19 +1,24 @@
-export interface AuthState extends User {}
+export interface AuthState {
+  user: User | undefined;
+}
 
 export interface User {
-  id: string | undefined;
-  iat: number | undefined;
-  firstName: string | undefined;
-  lastName: string | undefined;
-  email: string | undefined;
-  role: string | undefined;
+  id: string;
+  iat: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
 }
 
 export const STORE_USER = "STORE_USER";
+export const REMOVE_USER = "REMOVE_USER";
 
 interface StoreUser {
   type: typeof STORE_USER;
   payload: User;
 }
-
-export type AuthActionTypes = StoreUser;
+interface RemoveUser {
+  type: typeof REMOVE_USER;
+}
+export type AuthActionTypes = StoreUser | RemoveUser;

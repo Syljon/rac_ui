@@ -8,9 +8,11 @@ import { SnackbarUtilsConfigurator } from "./shared/helpers/snackbar";
 import AuthRoute from "./shared/routes/AuthRoute";
 import jwt_decode from "jwt-decode";
 import { User } from "./store/auth/types";
-import store from "./store";
+import store, { RootState } from "./store";
 import * as AuthActions from "./store/auth/actions";
 import Loading from "./components/Loading";
+import Navbar from "./components/Navigation";
+import { useSelector } from "react-redux";
 
 export const Routes: { [key: string]: string } = {
   Login: "/login",
@@ -20,12 +22,14 @@ export const Routes: { [key: string]: string } = {
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const storedUser = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       const user: User = jwt_decode(accessToken);
       store.dispatch(AuthActions.storeUser(user));
+      history.push("/dashboard");
     }
     setLoading(false);
   }, []);
@@ -37,6 +41,7 @@ function App() {
       <SnackbarProvider maxSnack={3}>
         <SnackbarUtilsConfigurator />
         <Router history={history}>
+          {storedUser && <Navbar></Navbar>}
           <Switch>
             <Route path={Routes.Login} component={Pages.LoginPage} />
             <Route path={Routes.SetPassword} component={Pages.SetPassword} />

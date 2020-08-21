@@ -37,9 +37,9 @@ export default function SetPasswordForm() {
   const classes = useStyles();
   const query = useQuery();
   const history = useHistory();
-  let token: string;
+
   useEffect(() => {
-    token = query.get("token") as string;
+    const token = query.get("token") as string;
     if (!token) {
       history.push(Routes.Login);
       return;
@@ -54,7 +54,7 @@ export default function SetPasswordForm() {
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
         const response = await AuthService.SubmitSetPassword({
-          token: token,
+          token: query.get("token") as string,
           password: values.password,
           password2: values.password2,
         });
